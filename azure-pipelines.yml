@@ -14,6 +14,11 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: app/Dockerfile
+- task: Docker@2
+  inputs:
+    containerRegistry: 'registry.aquasec.com'
+    command: 'login'
+    addPipelineData: false
 - task: aquasecScanner@4
   inputs:
     image: '$(imageName)'
