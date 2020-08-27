@@ -14,3 +14,29 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: app/Dockerfile
+- task: aquasecScanner@4
+  inputs:
+    image: '$(imageName)'
+    scanner: 'registry.aquasec.com/scanner:4.6'
+    scanType: 'local'
+    register: true
+    hideBase: false
+    showNegligible: false
+    registry: 'ACR'
+    connection: 'Aqua-Console'
+    caCertificates: true
+    registerCompliant: true
+    scanMalware: true
+### Alaska Airlines Configuration
+#- task: aquasecScanner@4
+#  displayName: 'Scanning Docker Container Image'
+#  inputs:
+#    image: '$(SetImageVars.ImageTrusted)'
+#    connection: 'aqua-console-$(System.TeamProject)'
+#    caCertificates: true
+#    scanType: local
+#    registry: 'aagacr.azurecr.io'
+#    scanMalware: true
+#    register: true
+#    registerCompliant: true
+#    scanner: '$(AquaScanImage)'
